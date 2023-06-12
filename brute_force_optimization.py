@@ -7,6 +7,7 @@
 import diag_helpers as helpers
 import itertools as it
 #from diag_optimization import weight
+import tableau_operations as top
 import numpy as np
 import galois
 GF = galois.GF(2)
@@ -111,26 +112,62 @@ def brute_force_optimize(nullspace, connectivity="full"):
     return curr_vectors[0]
 
 #%%
-def heuristics(nullspace):
+def heuristics(x, z):
 
-    r = nullspace.shape[0]
-    n = nullspace.shape[1]//2
+    # r = nullspace.shape[0]
+    # n = nullspace.shape[1]//2
 
-    curr_vector = nullspace[0]
-    curr_weight = weight(curr_vector, n)
+    # curr_vector = nullspace[0]
+    # curr_weight = weight(curr_vector, n)
 
-    for j in range(r):
+    # for j in range(r):
 
-        tmp_vector = nullspace[j]
-        tmp_weight = weight(tmp_vector, n)
+    #     tmp_vector = nullspace[j]
+    #     tmp_weight = weight(tmp_vector, n)
 
-        if tmp_weight < curr_weight:
+    #     if tmp_weight < curr_weight:
 
-            curr_vector = tmp_vector
-            curr_weight = tmp_weight
+    #         curr_vector = tmp_vector
+    #         curr_weight = tmp_weight
+
+    def get_vector_heuristics(T, rblock, colindx):
+        col = T[:,colindx]
+        vector = GF(np.zeros(shape= T.shape[1], dtype=int))
+        vector[colindx] = 1
+
+        for j in range(len(col)):
+            if col[j] == 1:
+                vector[rblock[j]] = 1
+        
+        return vector
+
+    T = top.makeTableauMatrix(x,z).row_reduce()
+    r,n = x.shape
+
+    rblock = {i:None for i in range(r)}
+    for j in range(2*n):
+        col = T[:,j]
+        if len(col[col == 1]) == 1:
+            idx = np.where(col == 1)[0][0]
+            if rblock[idx] is None:
+                rblock[idx] = j
     
-    return curr_vector
+    curr_vector = None
+    curr_weight = None
+    for j in range(2*n):
+        if not j in rblock.values():
+            colindx = j
+            tmp_vector = get_vector_heuristics(T, rblock, colindx)
+            tmp_weight = weight(tmp_vector, n)
+            if curr_vector is None and curr_weight is None:
+                curr_vector = tmp_vector
+                curr_weight = tmp_weight
+            
+            if tmp_weight < curr_weight:
+                curr_vector = tmp_vector
+                curr_weight = tmp_weight
 
+    return curr_vector
 
 #%% My second implementation of Brute force. This time, I search through the whole normalizer
 def commute(p1, p2):

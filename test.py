@@ -6,9 +6,11 @@
 import helpers
 import diagonalize as dg
 from tableau_operations import *
+import brute_force_optimization as bfo
 # %%
 pstringsLiH = helpers.read_hamiltonian("misc/LiH2.txt")
 pstrings = helpers.read_hamiltonian("misc/miller.txt")
+
 cluster = []
 i = 0
 j  = 0
@@ -27,9 +29,13 @@ while i < len(pstrings):
     
     i += 1
 
+x,z = np.load("random_paulis_sets/tableau_n_5_j_0.npy")
+#%%
+# bfo.heuristics(None, x,z)
+
 # %%
 print("without swaps: ")
-X,Z,S,U=dg.main_diagonalizer(pstrings, reduced_h=False, connectivity="full")
+X,Z,S,U=dg.main_diagonalizer(pstrings, reduced_h=False, connectivity="full", optimize=False)
 print(U)
 
 

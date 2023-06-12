@@ -344,11 +344,6 @@ def main_diagonalizer(pstrings, reduced_h = False, connectivity="full", optimize
     ind_pstrings = getIndependentPauliStrings(x,z)
     x,z,_,_ = tableau(ind_pstrings)
 
-    print(x.shape[0])
-
-    return x.shape[0]
-
-
     # start the loop
     for bb in range(n):
 
@@ -373,8 +368,9 @@ def main_diagonalizer(pstrings, reduced_h = False, connectivity="full", optimize
         if nullspace.shape[0] == 0:
             return X,Z,S,U
         if not optimize:
-            print("lalala")
-            basis = bfo.heuristics(nullspace)
+            #print("Use the Heuristics guaranteeing a vector with weight at most r + 1")
+            #basis = bfo.heuristics(x,z)
+            print("Not implemented")
         else:
             basis = bfo.brute_force_optimize(nullspace, connectivity=connectivity)
         X,Z,S,U, x,z, pivot = reduce_column(basis, qmap, x,z, X,Z,S,U, reduced_h, connectivity)
