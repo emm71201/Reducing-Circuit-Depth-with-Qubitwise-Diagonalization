@@ -38,6 +38,9 @@ print("without swaps: ")
 X,Z,S,U=dg.main_diagonalizer(pstrings, reduced_h=False, connectivity="full", optimize=False)
 print(U)
 
-
+#%%
+print("without swaps: ")
+X,Z,S,U=dg.main_diagonalizer(pstrings, reduced_h=False, connectivity="full", optimize=True)
+print(U)
 
 # %%
