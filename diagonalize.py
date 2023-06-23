@@ -383,6 +383,13 @@ def main_diagonalizer(pstrings, reduced_h = False, connectivity="full", optimize
 
 def main(filepath,reduced_h = False, connectivity="full", optimize=True):
 
+    """ Call this function to run the whole algorithm.
+    Params:
+     filepath: path to the file containing the Pauli strings: e.g. XX\nYY\nZZ\n
+      connectivity: Only full and linear are implemented
+       opimize: True. The heuristtic option will be implemented in the future
+         """
+
     pstrings = read_pauli_strings(filepath)
 
     if not pstring is None:
