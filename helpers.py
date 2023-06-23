@@ -89,3 +89,33 @@ def read_hamiltonian(filepath):
                 pstrings.append(pstring(pauli_to_numerical(pauli),coef))
 
     return pstrings
+
+def read_pauli_strings(filepath):
+    """Reads the Hamiltonian
+    filepath : The path to the file containing the Hamiltonian"""
+
+    pstrings = []
+    try:
+        with open(filepath, "r") as f:
+            for line in f:
+                # tmp = line.split(",")
+                # pauli = tmp[0]
+                # coef = tmp[1]
+                # try:
+                #     coef = float(coef)
+                # except:
+                #     print("The coefficient of the Pauli strings must be numerical.")
+                #     print("Check the coefficients from the Hamiltonian file")
+                #     return
+                
+                pauli = line.strip()
+                coef = 1
+
+                if pauli != "I"*len(pauli):
+                    pstrings.append(pstring(pauli_to_numerical(pauli),coef))
+    
+    except FileNotFoundError:
+        print('The File does not exist or the path is incorrect.')
+        return 
+
+    return pstrings

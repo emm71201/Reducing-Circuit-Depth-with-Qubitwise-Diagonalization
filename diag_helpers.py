@@ -89,3 +89,24 @@ def read_hamiltonian(filepath):
                 pstrings.append(pstring(pauli_to_numerical(pauli),coef))
 
     return pstrings
+
+def read_pauli_strings(filepath):
+    """Reads the Hamiltonian
+    filepath : The path to the file containing the Hamiltonian"""
+
+    pstrings = []
+    try:
+        with open(filepath, "r") as f:
+            for line in f:
+                
+                pauli = line.strip()
+                coef = 1
+
+                if pauli != "I"*len(pauli):
+                    pstrings.append(pstring(pauli_to_numerical(pauli),coef))
+    
+    except FileNotFoundError:
+        print('The File does not exist or the path is incorrect.')
+        return 
+
+    return pstrings

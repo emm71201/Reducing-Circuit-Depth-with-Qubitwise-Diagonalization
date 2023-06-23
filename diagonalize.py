@@ -18,6 +18,7 @@ from tableau import *
 from tableau_operations import *
 import brute_force_optimization as bfo
 import copy as cp
+from diag_helpers import read_pauli_strings
 
 def mask_column(x,z,col, qmap):
 
@@ -379,3 +380,26 @@ def main_diagonalizer(pstrings, reduced_h = False, connectivity="full", optimize
 
     return X, Z, S, U
 
+
+def main(filepath,reduced_h = False, connectivity="full", optimize=True):
+
+    pstrings = read_pauli_strings(filepath)
+
+    if not pstring is None:
+
+        X,Z,S,U = main_diagonalizer(pstrings, reduced_h = False, connectivity="full", optimize=True)
+
+        if X.any():
+            print("The diagonalization failed.")
+            print("Ensure that the Pauli strings commute")
+            print("2. Contact the authors if indeed the Pauli strings commute")
+            return
+        else:
+            print("Diagonalization: Successful")
+            print("Returning: X, Z, S, and U")
+    
+    else:
+        print("Check that the file exists")
+        return
+    
+    return X,Z,S,U
