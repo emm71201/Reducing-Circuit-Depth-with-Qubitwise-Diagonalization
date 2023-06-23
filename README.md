@@ -15,9 +15,12 @@ As explained in the paper, to achieve the lines XX to YY with the pseudocodes be
 
 ### Prepare the commuting Pauli Strings
 * Ensure the Pauli strings are writen in the file where each line is a Pauli string (for example XX (on the first line), YY (on the second line))
+### Run the diagonalization routine and obtain the results
 * Call the function `main` in the file diagonalize.py.
 * The Function returns X, Z, S, U
 * U is the quantum circuit
 * X is the transformed X part of the tableau. It should be a zero matrix.
 * Z is the transformed Z part of the tableau.
 * S is the sign of the transformed Pauli strings. (0 means +, 1 means -)
+
+## Gallery
