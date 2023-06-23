@@ -14,19 +14,10 @@ As explained in the paper, to achieve the lines XX to YY with the pseudocodes be
 ## Tutorial
 
 ### Prepare the commuting Pauli Strings
-* Ensure the Pauli strings are writen in the file such that each line is a pair 
-
-* Call the function `helpers.read_hamiltonian(path_to_the_file)`
-  - The function returns a list of Pauli strings objects (pstring class implemented in the file `pstring.py`)
-  - We call this list `pauli_strings`
-  - We will pass this list to the `main_diagonalizder` function in `diagonalize.py`
-
-* Call the function `diagonalize.main_diagonalizer(pauli_strings)`
-  - This function returns `X,Z,S,U`
-  - `X`: The X part of the Tableau. It should always be `0` otherwise the diagonalization failed.
-  - If `X` is not `0`, ensure that the Pauli strings given indeed commute with one another. If they do, contact the authors 
-    - Edison Murairi: `emm712@gwu.edu`
-    - Michael Cervia: `cervia@gwu.edu`
-  - `Z`: The Z part of the Tableau. It contains the resulting Pauli strings from the diagonalization. See the paper for the description. 
-  - `S`: The sign (`+` or `-`) of the resulting Pauli strings.
-  - `U`: The resulting quantum circuit writen in `qiskit`.
+* Ensure the Pauli strings are writen in the file where each line is a Pauli string (for example XX (on the first line), YY (on the second line))
+* Call the function `main` in the file diagonalize.py.
+* The Function returns X, Z, S, U
+* U is the quantum circuit
+* X is the transformed X part of the tableau. It should be a zero matrix.
+* Z is the transformed Z part of the tableau.
+* S is the sign of the transformed Pauli strings. (0 means +, 1 means -)
