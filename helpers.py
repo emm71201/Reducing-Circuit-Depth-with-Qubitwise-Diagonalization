@@ -77,7 +77,8 @@ def read_hamiltonian(filepath):
         for line in f:
             tmp = line.split(",")
             pauli = tmp[0]
-            coef = tmp[1]
+            #coef = tmp[1]
+            coef = 1
             try:
                 coef = float(coef)
             except:
